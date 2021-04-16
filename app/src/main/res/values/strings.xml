@@ -2,5 +2,7 @@
     <string name="app_name">TravelPlanner</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="loading">Loading</string>
-
+    <string name="nav_bar_activity">Explore</string>
+    <string name="nav_bar_restaurant">Eat</string>
+    <string name="nav_bar_hotel">Stay</string>
 </resources>
