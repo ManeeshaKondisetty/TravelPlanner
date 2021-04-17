@@ -12,7 +12,7 @@
         android:layout_alignParentBottom="true"
         app:menu="@menu/nav_bar_menu"
         app:itemIconTint="@android:color/white"
-        app:itemTextColor="@android:color/white" />
+        app:itemTextColor="@color/black" />
 
     <FrameLayout
 

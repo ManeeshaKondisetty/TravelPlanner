@@ -3,19 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_recents"
+        android:id="@+id/explore"
         android:enabled="true"
         android:title="@string/nav_bar_activity"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_favorites"
+        android:id="@+id/stay"
         android:enabled="true"
         android:title="@string/nav_bar_hotel"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_nearby"
+        android:id="@+id/eat"
         android:enabled="true"
         android:title="@string/nav_bar_restaurant"
         app:showAsAction="ifRoom" />
