@@ -44,7 +44,7 @@ class HotelFragment : Fragment() {
         super.onResume()
         progress_show?.setVisibility(View.VISIBLE)
         val job = SupervisorJob()
-        val scope = CoroutineScope(Dispatchers.Main )
+        val scope = CoroutineScope(Dispatchers.Main)
 
         val amadeus = Amadeus.Builder(this.requireContext())
                 .setClientId("SP5M72pMXkK2AnzqT9PMPp15dKVIgUTj")
