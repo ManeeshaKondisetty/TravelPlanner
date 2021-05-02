@@ -1,9 +1,7 @@
-package com.umkc.travelplanner
+package com.umkc.travelplanner.stay
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.icu.text.Transliterator
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,14 +9,17 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import java.util.*
+import com.squareup.picasso.Picasso
+import com.umkc.travelplanner.R
+import org.w3c.dom.Text
+import java.util.ArrayList
 
 
 class HotelListItemAdapter(
-        private var context: Context,
-        private var nameList: ArrayList<String>,
-        private var URIList: ArrayList<String>,
-        private var reviewList: ArrayList<Int>
+    private var context: Context,
+    private var nameList: ArrayList<String>,
+    private var priceList: ArrayList<String>,
+    private var reviewList: ArrayList<Int>
 ) : BaseAdapter() {
 
     override fun getCount(): Int {
@@ -38,20 +39,18 @@ class HotelListItemAdapter(
         val inflater: LayoutInflater = (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
         val row: View = inflater.inflate(R.layout.hotel_list_item, parent, false)
         val title: TextView
-        val i1 = row.findViewById(R.id.imgIcon) as ImageView
+        val i1 = row.findViewById(R.id.hotel_price) as TextView
         val r1 = row.findViewById(R.id.review1) as ImageView
         val r2 = row.findViewById(R.id.review2) as ImageView
         val r3 = row.findViewById(R.id.review3) as ImageView
         val r4 = row.findViewById(R.id.review4) as ImageView
-        val r5 = row.findViewById(R.id.review4) as ImageView
-
-
+        val r5 = row.findViewById(R.id.review5) as ImageView
 
         title = row.findViewById(R.id.txtTitle)
-        title.text = nameList.get(position)
-        //Glide.with(context).load(URIList.get(position)).into(i1)
+        title.text = nameList[position]
+        i1.text = priceList[position]
 
-        when (reviewList.get(position)) {
+        when (reviewList[position]) {
             1 -> {
                 r1.visibility = View.VISIBLE
                 r2.visibility = View.GONE

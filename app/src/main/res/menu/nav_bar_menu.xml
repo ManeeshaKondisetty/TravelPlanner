@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/explore"
-        android:enabled="true"
-        android:title="@string/nav_bar_activity"
-        app:showAsAction="ifRoom" />
+        android:icon="@drawable/explore_icon"
+        android:title="@string/nav_bar_activity" />
 
     <item
         android:id="@+id/stay"
-        android:enabled="true"
-        android:title="@string/nav_bar_hotel"
-        app:showAsAction="ifRoom" />
+        android:icon="@drawable/hotel_icon"
+        android:title="@string/nav_bar_hotel" />
 
     <item
         android:id="@+id/eat"
-        android:enabled="true"
-        android:title="@string/nav_bar_restaurant"
-        app:showAsAction="ifRoom" />
+        android:icon="@drawable/eat_icon"
+        android:title="@string/nav_bar_restaurant" />
 </menu>

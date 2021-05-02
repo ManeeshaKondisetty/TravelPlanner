@@ -1,27 +1,24 @@
-package com.umkc.travelplanner
+package com.umkc.travelplanner.stay
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.amadeus.android.Amadeus
 import com.amadeus.android.ApiResult
+import com.umkc.travelplanner.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.ArrayList
 
 
 class HotelFragment : Fragment() {
-    var progress_show : ProgressBar? = null
+    private var progress_show: ProgressBar? = null
     lateinit var listOfHotels: ListView
 
     lateinit var actContext: Context
@@ -39,34 +36,32 @@ class HotelFragment : Fragment() {
     }
 
 
-
     override fun onResume() {
         super.onResume()
-        progress_show?.setVisibility(View.VISIBLE)
-        val job = SupervisorJob()
-        val scope = CoroutineScope(Dispatchers.Main )
+        progress_show?.visibility = View.VISIBLE
+        val scope = CoroutineScope(Dispatchers.Main)
 
         val amadeus = Amadeus.Builder(this.requireContext())
-                .setClientId("SP5M72pMXkK2AnzqT9PMPp15dKVIgUTj")
-                .setClientSecret("9sTwg1D5KHNOFY0w")
-                .build()
+            .setClientId("SP5M72pMXkK2AnzqT9PMPp15dKVIgUTj")
+            .setClientSecret("9sTwg1D5KHNOFY0w")
+            .build()
 
         scope.launch {
             when (val checkinLinks = amadeus.shopping.hotelOffers.get("MCI")) {
                 is ApiResult.Success -> {
                     val list = checkinLinks.data
 
-                    val name : ArrayList<String> = ArrayList<String>()
-                    val uri : ArrayList<String> = ArrayList<String>()
+                    val name: ArrayList<String> = ArrayList<String>()
+                    val price: ArrayList<String> = ArrayList<String>()
                     val review: ArrayList<Int> = ArrayList()
-                    for(each in list) {
+                    for (each in list) {
                         name.add(each.hotel?.name ?: "Unknown")
-                        uri.add(each.hotel?.media?.get(0)?.uri ?: "Unknown")
+                        price.add(each.offers?.get(0)?.price?.total ?: "X")
                         review.add(each.hotel?.rating ?: 1)
                     }
                     progress_show?.visibility = View.GONE
 
-                    val hotelAdapter = HotelListItemAdapter(actContext, name, uri, review)
+                    val hotelAdapter = HotelListItemAdapter(actContext, name, price, review)
                     listOfHotels.adapter = hotelAdapter
 
 
