@@ -1,12 +1,15 @@
 package com.umkc.travelplanner.stay
 
 import android.content.Context
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ListView
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.amadeus.android.Amadeus
 import com.amadeus.android.ApiResult
@@ -20,6 +23,7 @@ import java.util.ArrayList
 class HotelFragment : Fragment() {
     private var progress_show: ProgressBar? = null
     lateinit var listOfHotels: ListView
+    lateinit var go_clicked: Button
 
     lateinit var actContext: Context
 
@@ -32,25 +36,36 @@ class HotelFragment : Fragment() {
         val root = inflater.inflate(R.layout.activity_hotel, null) as ViewGroup
         progress_show = root.findViewById<View>(R.id.progressBar3) as ProgressBar
         listOfHotels = root.findViewById(R.id.list_of_hotels)
+        go_clicked = root.findViewById(R.id.go_button)
         return root
     }
 
 
     override fun onResume() {
         super.onResume()
-        progress_show?.visibility = View.VISIBLE
+       gethotels("MCI")
+       go_clicked.setOnClickListener {
+           gethotels("CDG")
+       }
+
+    }
+
+    private fun gethotels(citycode:String){
+        progress_show?.visibility=View.VISIBLE
         val scope = CoroutineScope(Dispatchers.Main)
 
         val amadeus = Amadeus.Builder(this.requireContext())
-            .setClientId("SP5M72pMXkK2AnzqT9PMPp15dKVIgUTj")
-            .setClientSecret("9sTwg1D5KHNOFY0w")
-            .build()
+                .setClientId("SP5M72pMXkK2AnzqT9PMPp15dKVIgUTj")
+                .setClientSecret("9sTwg1D5KHNOFY0w")
+                .build()
 
         scope.launch {
-            when (val checkinLinks = amadeus.shopping.hotelOffers.get("MCI")) {
+            when (val checkinLinks = amadeus.shopping.hotelOffers.get(citycode)) {
                 is ApiResult.Success -> {
-                    val list = checkinLinks.data
 
+
+                    val list = checkinLinks.data
+                    progress_show?.visibility=View.GONE
                     val name: ArrayList<String> = ArrayList<String>()
                     val price: ArrayList<String> = ArrayList<String>()
                     val review: ArrayList<Int> = ArrayList()
@@ -64,10 +79,10 @@ class HotelFragment : Fragment() {
                     val hotelAdapter = HotelListItemAdapter(actContext, name, price, review)
                     listOfHotels.adapter = hotelAdapter
 
-
                 }
                 is ApiResult.Error -> {
-                    // Handle your error
+                    progress_show?.visibility = View.GONE
+                    Toast.makeText(this@HotelFragment.activity,"Oops! Something went wrong,retry.",Toast.LENGTH_LONG).show()
                 }
             }
         }
