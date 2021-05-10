@@ -1,5 +1,6 @@
 package com.umkc.travelplanner;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.umkc.travelplanner.eat.EatFragment;
 import com.umkc.travelplanner.stay.HotelFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,6 +37,12 @@ public class MainActivity extends AppCompatActivity {
                 // TODO - Add Explore Click
 
                 // TODO - Add Eat Click
+                if (item.getItemId() == R.id.eat) {
+                    final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragment_frame, new EatFragment());
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
 
                 if (item.getItemId() == R.id.stay) {
                     final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
