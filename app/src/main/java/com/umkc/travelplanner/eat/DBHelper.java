@@ -50,7 +50,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public List<Venue> fetch() {
         List<Venue> results =  new ArrayList<>();
-        String query = "select * from venue order by id desc";
+        String query = "select * from venue order by id desc limit 10";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         Log.d(TAG, "fetch: ");
