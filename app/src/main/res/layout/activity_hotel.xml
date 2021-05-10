@@ -14,12 +14,13 @@
         android:weightSum="10"
         android:background="@drawable/search_border"
         android:orientation="horizontal">
-        <EditText
-            android:padding="10dp"
+
+        <Spinner
+            android:id="@+id/spinner"
             android:layout_width="0dp"
-            android:hint="Enter Location"
             android:layout_height="wrap_content"
-            android:layout_weight="8"/>
+            android:layout_weight="8"
+            android:padding="10dp" />
 
         <Button
             android:id="@+id/go_button"

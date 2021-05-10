@@ -3,13 +3,11 @@ package com.umkc.travelplanner.stay
 import android.content.Context
 import android.opengl.Visibility
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ListView
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.amadeus.android.Amadeus
 import com.amadeus.android.ApiResult
@@ -17,13 +15,16 @@ import com.umkc.travelplanner.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.util.ArrayList
+import kotlin.math.log
 
 
 class HotelFragment : Fragment() {
     private var progress_show: ProgressBar? = null
     lateinit var listOfHotels: ListView
     lateinit var go_clicked: Button
+    lateinit var spinner:Spinner
 
     lateinit var actContext: Context
 
@@ -37,6 +38,13 @@ class HotelFragment : Fragment() {
         progress_show = root.findViewById<View>(R.id.progressBar3) as ProgressBar
         listOfHotels = root.findViewById(R.id.list_of_hotels)
         go_clicked = root.findViewById(R.id.go_button)
+        spinner = root.findViewById(R.id.spinner)
+        val locations=resources.getStringArray(R.array.spinner_locations)
+        if (spinner!=null){
+            val spinnerAdapter=ArrayAdapter(activity!!,R.layout.hotel_spinner_items,locations)
+            spinner.adapter=spinnerAdapter
+
+        }
         return root
     }
 
@@ -45,7 +53,10 @@ class HotelFragment : Fragment() {
         super.onResume()
        gethotels("MCI")
        go_clicked.setOnClickListener {
-           gethotels("CDG")
+           var selected_location = spinner.selectedItem.toString()
+           var substring_selected_location = selected_location.substringAfter("-","MCI")
+           Log.d("Maneesha",substring_selected_location)
+           gethotels(substring_selected_location)
        }
 
     }

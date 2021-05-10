@@ -4,4 +4,17 @@
     <string name="nav_bar_activity">Explore</string>
     <string name="nav_bar_restaurant">Eat</string>
     <string name="nav_bar_hotel">Stay</string>
+    <string-array name="spinner_locations">
+        <item>Kansas City-MCI</item>
+        <item>Florida-MTH</item>
+        <item>Las Vegas-LAS</item>
+        <item>New York-JFK</item>
+        <item>Chicago-ORD</item>
+        <item>Denver-DEN</item>
+        <item>New Orleans-NEW</item>
+        <item>Dallas-DFW</item>
+        <item>San Diego-SAN</item>
+        <item>Detroit-DTT</item>
+
+    </string-array>
 </resources>
