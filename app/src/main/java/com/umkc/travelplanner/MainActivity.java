@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.umkc.travelplanner.eat.EatFragment;
+import com.umkc.travelplanner.explore.ExploreFragment;
 import com.umkc.travelplanner.stay.HotelFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,6 +23,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // TODO - Start with Explore page
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_frame, new ExploreFragment());
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override
@@ -35,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
                 item.setChecked(true);
 
                 // TODO - Add Explore Click
+                if (item.getItemId() == R.id.explore) {
+                    final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragment_frame, new ExploreFragment());
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
 
                 // TODO - Add Eat Click
                 if (item.getItemId() == R.id.eat) {
